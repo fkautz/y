@@ -1,0 +1,43 @@
+<head>
+  <title>Y (Game)</title>
+  <link rel="stylesheet" href="/client/y.css" />
+</head>
+
+<body>
+  <audio id="stone-sound" preload="auto" volume="0.5" autobuffer>
+    <source src="stone.ogg">
+  </audio>
+  <h1 align="center"> Y (Game) </h1>
+  {{> game }}
+</body>
+
+<template name="game">
+  <p>
+    {{> board }}
+  </p>
+  <div class="input-wrapper">
+    <input type="button" value="Restart" class="reset_board playsound" style="border-style:none;" />
+    <input type="button" value="Undo" class="undo_move playsound" style="border-style:none;" />
+  </div>
+</template>
+
+<template name="board">
+  <svg width="500" height="500">
+    <rect width="500" height="500" fill="tan" stroke="black" stroke-width="2" />
+    <image width="500" height="500" type="image/svg+xml" xlink:href="y.svg" />
+    {{#each moves}}
+      {{>move}}
+    {{/each}}
+    {{#each lastMove}}
+      {{>lastMoveTemplate}}
+    {{/each}}
+  </svg>
+</template>
+
+<template name="move">
+  <circle cx="{{this.x}}" cy="{{this.y}}" r="{{rsize}}" fill="{{color}}" opacity="{{opacity}}" />
+</template>
+
+<template name="lastMoveTemplate">
+  <circle cx="{{this.x}}" cy="{{this.y}}" r="4" fill="red" opacity="1" />
+</template>
